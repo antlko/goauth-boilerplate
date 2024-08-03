@@ -47,30 +47,30 @@ $ go run main.go
 
 ## Api
 ```http
-POST localhost:4000/api/v1/users/auth/signup
+POST /api/v1/users/auth/signup
 {
-    "login":"test",
-    "email":"test@gmail.com",
-    "password":"test"
+"login":"test",
+"email":"test@gmail.com",
+"password":"test"
 }
 
-POST localhost:4000/api/v1/users/auth/signin
+POST /api/v1/users/auth/signin
 {
-    "login":"test",
-    "password":"test"
+"login":"test",
+"password":"test"
 }
 
-POST localhost:4000/api/v1/users/auth/token/refresh
+POST /api/v1/users/auth/token/refresh
 {
-    "refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI2OTE4NjMsInVzZXJuYW1lIjoidGVzdDMifQ.7B2Epr9p46FUd088WfH1OxU2r0KelezMK2gDI4ZVX8Q"
+"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI2OTE4NjMsInVzZXJuYW1lIjoidGVzdDMifQ.7B2Epr9p46FUd088WfH1OxU2r0KelezMK2gDI4ZVX8Q"
 }
 ```
 
 Example of usage the protected endpoint
 ```http
-POST localhost:4000/api/v1/protected/user
+POST /api/v1/protected/user
 {
-    "refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI2OTE4NjMsInVzZXJuYW1lIjoidGVzdDMifQ.7B2Epr9p46FUd088WfH1OxU2r0KelezMK2gDI4ZVX8Q"
+"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI2OTE4NjMsInVzZXJuYW1lIjoidGVzdDMifQ.7B2Epr9p46FUd088WfH1OxU2r0KelezMK2gDI4ZVX8Q"
 }
 ```
 
