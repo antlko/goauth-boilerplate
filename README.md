@@ -8,6 +8,30 @@
 </h1>
 
 <h4 align="center">Golang boilerplate project to have a quick setup of server with JWT Authentication</h4>
+<h4 align="center">
+    ```
+    +--------+                                           +---------------+
+    |        |--(A)------- Authorization Grant --------->|               |
+    |        |                                           |               |
+    |        |<-(B)----------- Access Token -------------|               |
+    |        |               & Refresh Token             |               |
+    |        |                                           |               |
+    |        |                                           |               |
+    |        |--(C)----------- Access Token ------------>|               |
+    |        |                                           |               |
+    |        |<-(D)--------- Protected Resource ---------| Authorization |
+    | Client |                                           |     Server    |
+    |        |--(E)----------- Access Token ------------>|               |
+    |        |                                           |               |
+    |        |<-(F)-------- Invalid Token Error ---------|               |
+    |        |                                           |               |
+    |        |                                           |               |
+    |        |--(G)----------- Refresh Token ----------->|               |
+    |        |                                           |               |
+    |        |<-(H)----------- Access Token -------------|               |
+    +--------+           & Optional Refresh Token        +---------------+
+    ```
+</h4>
 
 <p align="center">
     <a href="#key-features">Key Features</a> •
@@ -25,28 +49,6 @@
 * Refresh - refresh tokens.
 * Easy-to-test - project structured in a way to make it simple and easy to mock everything and test.
 * Docker-Compose for DB
-```
-+--------+                                           +---------------+
-|        |--(A)------- Authorization Grant --------->|               |
-|        |                                           |               |
-|        |<-(B)----------- Access Token -------------|               |
-|        |               & Refresh Token             |               |
-|        |                                           |               |
-|        |                                           |               |
-|        |--(C)----------- Access Token ------------>|               |
-|        |                                           |               |
-|        |<-(D)--------- Protected Resource ---------| Authorization |
-| Client |                                           |     Server    |
-|        |--(E)----------- Access Token ------------>|               |
-|        |                                           |               |
-|        |<-(F)-------- Invalid Token Error ---------|               |
-|        |                                           |               |
-|        |                                           |               |
-|        |--(G)----------- Refresh Token ----------->|               |
-|        |                                           |               |
-|        |<-(H)----------- Access Token -------------|               |
-+--------+           & Optional Refresh Token        +---------------+
-```
 
 ## How To Use
 
