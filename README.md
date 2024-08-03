@@ -91,7 +91,7 @@ POST /api/v1/users/auth/token/refresh
 
 Example of usage the protected endpoint
 ```http
-POST /api/v1/protected/user
+GET /api/v1/protected/user
 Authorization: Bearer your_access_token
 ```
 
