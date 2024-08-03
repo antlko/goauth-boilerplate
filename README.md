@@ -26,6 +26,27 @@
 * Easy-to-test - project structured in a way to make it simple and easy to mock everything and test.
 * Docker-Compose for DB
 
++--------+                                           +---------------+
+|        |--(A)------- Authorization Grant --------->|               |
+|        |                                           |               |
+|        |<-(B)----------- Access Token -------------|               |
+|        |               & Refresh Token             |               |
+|        |                                           |               |
+|        |                                           |               |
+|        |--(C)----------- Access Token ------------>|               |
+|        |                                           |               |
+|        |<-(D)--------- Protected Resource ---------| Authorization |
+| Client |                                           |     Server    |
+|        |--(E)----------- Access Token ------------>|               |
+|        |                                           |               |
+|        |<-(F)-------- Invalid Token Error ---------|               |
+|        |                                           |               |
+|        |                                           |               |
+|        |--(G)----------- Refresh Token ----------->|               |
+|        |                                           |               |
+|        |<-(H)----------- Access Token -------------|               |
++--------+           & Optional Refresh Token        +---------------+
+
 ## How To Use
 
 ```bash
