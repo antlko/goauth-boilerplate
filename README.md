@@ -1,7 +1,7 @@
 <h1 align="center">
     <br>
-    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fmedium.com%2Fswlh%2Fbuilding-a-user-auth-system-with-jwt-using-golang-30892659cc0&psig=AOvVaw1zrDRs_07ozt2ZLCMe8NQd&ust=1722774963949000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMDUwoDr2IcDFQAAAAAdAAAAABAE"
-         alt="Markdownify" width="200">
+    <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*ovJrUZn9l-SXfEAWDpt2qQ.png"
+         alt="Go JWT" width="200">
     <br>
     Go Jwt Auth Boilerplate
     <br>
