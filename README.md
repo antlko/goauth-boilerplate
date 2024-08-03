@@ -17,26 +17,26 @@
 </p>
 
 ```
-        +--------+                                           +---------------+
-        |        |--(A)------- Authorization Grant --------->|               |
-        |        |                                           |               |
-        |        |<-(B)----------- Access Token -------------|               |
-        |        |               & Refresh Token             |               |
-        |        |                                           |               |
-        |        |                                           |               |
-        |        |--(C)----------- Access Token ------------>|               |
-        |        |                                           |               |
-        |        |<-(D)--------- Protected Resource ---------| Authorization |
-        | Client |                                           |     Server    |
-        |        |--(E)----------- Access Token ------------>|               |
-        |        |                                           |               |
-        |        |<-(F)-------- Invalid Token Error ---------|               |
-        |        |                                           |               |
-        |        |                                           |               |
-        |        |--(G)----------- Refresh Token ----------->|               |
-        |        |                                           |               |
-        |        |<-(H)----------- Access Token -------------|               |
-        +--------+           & Optional Refresh Token        +---------------+
++--------+                                           +---------------+
+|        |--(A)------- Authorization Grant --------->|               |
+|        |                                           |               |
+|        |<-(B)----------- Access Token -------------|               |
+|        |               & Refresh Token             |               |
+|        |                                           |               |
+|        |                                           |               |
+|        |--(C)----------- Access Token ------------>|               |
+|        |                                           |               |
+|        |<-(D)--------- Protected Resource ---------| Authorization |
+| Client |                                           |     Server    |
+|        |--(E)----------- Access Token ------------>|               |
+|        |                                           |               |
+|        |<-(F)-------- Invalid Token Error ---------|               |
+|        |                                           |               |
+|        |                                           |               |
+|        |--(G)----------- Refresh Token ----------->|               |
+|        |                                           |               |
+|        |<-(H)----------- Access Token -------------|               |
++--------+           & Optional Refresh Token        +---------------+
 ```
 
 ## Key Features
