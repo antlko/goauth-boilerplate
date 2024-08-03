@@ -12,7 +12,7 @@
 <p align="center">
     <a href="#key-features">Key Features</a> •
     <a href="#how-to-use">How To Use</a> •
-    <a href="#how-to-use">Api</a> •
+    <a href="#api">Api</a> •
     <a href="#license">License</a>
 </p>
 
