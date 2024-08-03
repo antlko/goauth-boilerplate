@@ -12,6 +12,7 @@
 <p align="center">
     <a href="#key-features">Key Features</a> •
     <a href="#how-to-use">How To Use</a> •
+    <a href="#how-to-use">Api</a> •
     <a href="#license">License</a>
 </p>
 
@@ -42,6 +43,35 @@ $ cp .env.dist .env
 
 # Run the app
 $ go run main.go
+```
+
+## Api
+```
+POST localhost:4000/api/v1/users/auth/signup
+{
+    "login":"test",
+    "email":"test@gmail.com",
+    "password":"test"
+}
+
+POST localhost:4000/api/v1/users/auth/signin
+{
+    "login":"test",
+    "password":"test"
+}
+
+POST localhost:4000/api/v1/users/auth/token/refresh
+{
+    "refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI2OTE4NjMsInVzZXJuYW1lIjoidGVzdDMifQ.7B2Epr9p46FUd088WfH1OxU2r0KelezMK2gDI4ZVX8Q"
+}
+```
+
+Example of usage the protected endpoint
+```
+POST localhost:4000/api/v1/protected/user
+{
+    "refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI2OTE4NjMsInVzZXJuYW1lIjoidGVzdDMifQ.7B2Epr9p46FUd088WfH1OxU2r0KelezMK2gDI4ZVX8Q"
+}
 ```
 
 ## License
