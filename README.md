@@ -8,28 +8,6 @@
 </h1>
 
 <h4 align="center">Golang boilerplate project to have a quick setup of server with JWT Authentication</h4>
-```
-    +--------+                                           +---------------+
-    |        |--(A)------- Authorization Grant --------->|               |
-    |        |                                           |               |
-    |        |<-(B)----------- Access Token -------------|               |
-    |        |               & Refresh Token             |               |
-    |        |                                           |               |
-    |        |                                           |               |
-    |        |--(C)----------- Access Token ------------>|               |
-    |        |                                           |               |
-    |        |<-(D)--------- Protected Resource ---------| Authorization |
-    | Client |                                           |     Server    |
-    |        |--(E)----------- Access Token ------------>|               |
-    |        |                                           |               |
-    |        |<-(F)-------- Invalid Token Error ---------|               |
-    |        |                                           |               |
-    |        |                                           |               |
-    |        |--(G)----------- Refresh Token ----------->|               |
-    |        |                                           |               |
-    |        |<-(H)----------- Access Token -------------|               |
-    +--------+           & Optional Refresh Token        +---------------+
-```
 
 <p align="center">
     <a href="#key-features">Key Features</a> •
@@ -37,6 +15,29 @@
     <a href="#api">Api</a> •
     <a href="#license">License</a>
 </p>
+
+```
+        +--------+                                           +---------------+
+        |        |--(A)------- Authorization Grant --------->|               |
+        |        |                                           |               |
+        |        |<-(B)----------- Access Token -------------|               |
+        |        |               & Refresh Token             |               |
+        |        |                                           |               |
+        |        |                                           |               |
+        |        |--(C)----------- Access Token ------------>|               |
+        |        |                                           |               |
+        |        |<-(D)--------- Protected Resource ---------| Authorization |
+        | Client |                                           |     Server    |
+        |        |--(E)----------- Access Token ------------>|               |
+        |        |                                           |               |
+        |        |<-(F)-------- Invalid Token Error ---------|               |
+        |        |                                           |               |
+        |        |                                           |               |
+        |        |--(G)----------- Refresh Token ----------->|               |
+        |        |                                           |               |
+        |        |<-(H)----------- Access Token -------------|               |
+        +--------+           & Optional Refresh Token        +---------------+
+```
 
 ## Key Features
 
