@@ -8,8 +8,7 @@
 </h1>
 
 <h4 align="center">Golang boilerplate project to have a quick setup of server with JWT Authentication</h4>
-<h4 align="center">
-    ```
+```
     +--------+                                           +---------------+
     |        |--(A)------- Authorization Grant --------->|               |
     |        |                                           |               |
@@ -30,8 +29,7 @@
     |        |                                           |               |
     |        |<-(H)----------- Access Token -------------|               |
     +--------+           & Optional Refresh Token        +---------------+
-    ```
-</h4>
+```
 
 <p align="center">
     <a href="#key-features">Key Features</a> •
