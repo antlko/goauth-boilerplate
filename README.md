@@ -25,7 +25,7 @@
 * Refresh - refresh tokens.
 * Easy-to-test - project structured in a way to make it simple and easy to mock everything and test.
 * Docker-Compose for DB
-
+```
 +--------+                                           +---------------+
 |        |--(A)------- Authorization Grant --------->|               |
 |        |                                           |               |
@@ -46,6 +46,7 @@
 |        |                                           |               |
 |        |<-(H)----------- Access Token -------------|               |
 +--------+           & Optional Refresh Token        +---------------+
+```
 
 ## How To Use
 
