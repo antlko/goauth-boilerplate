@@ -58,7 +58,7 @@ $ git clone https://github.com/antlko/goauth-boilerplate.git
 # Go into the repository
 $ cd goauth-boilerplate
 
-# Install dependencies
+# Deploy postgres container on demand
 $ docker-compose up -d
 
 # Copy default envs
