@@ -42,6 +42,8 @@
 ## Key Features
 
 * DB instance prepared - easy to create needed structures with goose library.
+* Logs of information from the request/response.
+* PII - simple example to parse body in logger middleware and hide personal ident. information (password).
 * Fiber framework - fast golang web library.
 * SignUp - prepared endpoint to register the user.
 * SignIn - authenticate user and get access & refresh tokens.
