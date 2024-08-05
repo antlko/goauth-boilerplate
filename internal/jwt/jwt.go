@@ -36,7 +36,7 @@ func (a Authorizer) CreateTokens(username string) (Tokens, error) {
 	if err != nil {
 		return Tokens{}, fmt.Errorf("create access token: %w", err)
 	}
-	refreshToken, err := a.createToken(username, a.accessDuration)
+	refreshToken, err := a.createToken(username, a.refreshDuration)
 	if err != nil {
 		return Tokens{}, fmt.Errorf("create refresh token: %w", err)
 	}
