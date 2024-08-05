@@ -27,6 +27,7 @@ func InitService(cfg AppConfig) {
 	dbInst, err := db.NewDB(cfg.DB, cfg.ApplicationName)
 	if err != nil {
 		slog.ErrorContext(ctx, "db initialisation: %s", err.Error())
+		return
 	}
 
 	if err := server.InitServer(cfg.Server, dbInst); err != nil {
