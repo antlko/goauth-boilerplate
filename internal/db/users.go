@@ -31,7 +31,7 @@ func (u UserRepo) GetById(ctx context.Context, id int64) (User, error) {
 
 func (u UserRepo) GetByLogin(ctx context.Context, login string) (User, error) {
 	var user User
-	if err := u.db.GetContext(ctx, &user, "SELECT * FROM users WHERE login = $1", login); err != nil {
+	if err := u.db.GetContext(ctx, &user, "SELECT * FROM users WHERE login = $1 OR email = $2", login, login); err != nil {
 		return User{}, fmt.Errorf("get user by login: %w", err)
 	}
 	return user, nil

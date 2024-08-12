@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/cors"
 	"github.com/jmoiron/sqlx"
+	"golang.org/x/oauth2"
 )
 
 type Config struct {
@@ -16,7 +17,7 @@ type Config struct {
 	JwtConfig  jwt.Config
 }
 
-func InitServer(cfg Config, dbInst *sqlx.DB) error {
+func InitServer(cfg Config, dbInst *sqlx.DB, googleConfig *oauth2.Config) error {
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
 		AllowHeaders: []string{"Origin", "Content-Type", "Accept", "Content-Length", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Accept-Language", "Content-Length", "Authorization"},
@@ -26,7 +27,7 @@ func InitServer(cfg Config, dbInst *sqlx.DB) error {
 	userRepo := db.NewUserRepo(dbInst)
 	authorizer := jwt.NewAuthorizer(cfg.JwtConfig)
 
-	authHandler := handlers.NewAuthHandler(userRepo, userRepo, authorizer)
+	authHandler := handlers.NewAuthHandler(userRepo, userRepo, authorizer, googleConfig)
 	userHandler := handlers.NewUserHandler(userRepo)
 
 	app.Use(
@@ -34,9 +35,12 @@ func InitServer(cfg Config, dbInst *sqlx.DB) error {
 		middlewares.Error,
 	)
 
-	app.Post("/api/v1/users/auth/signup", authHandler.SignUp)
-	app.Post("/api/v1/users/auth/signin", authHandler.SignIn)
-	app.Post("/api/v1/users/auth/token/refresh", authHandler.Verify)
+	app.Post("/api/v1/auth/signup", authHandler.SignUp)
+	app.Post("/api/v1/auth/signin", authHandler.SignIn)
+	app.Post("/api/v1/auth/token/refresh", authHandler.Verify)
+
+	app.Get("/api/v1/oauth2/google/signin", authHandler.GoogleSignIn)
+	app.Get("/api/v1/oauth2/google/callback", authHandler.GoogleCallback)
 
 	protected := app.Group("/api/v1/protected", middlewares.BearerVerifier(authorizer))
 	protected.Get("/user", userHandler.GetUser)
