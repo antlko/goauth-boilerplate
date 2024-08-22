@@ -144,7 +144,7 @@ POST /api/v1/auth/token/refresh
 
 Endpoints to login with google
 ```http
-GET /api/v1/oauth2/google/signin
+POST /api/v1/oauth2/google/signin
 GET /api/v1/oauth2/google/callback
 ```
 
