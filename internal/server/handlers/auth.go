@@ -10,13 +10,11 @@ import (
 	"github.com/antlko/goauth-boilerplate/internal/server/requests"
 	"github.com/antlko/goauth-boilerplate/internal/server/responses"
 	"github.com/gofiber/fiber/v3"
-	"github.com/gofiber/fiber/v3/middleware/session"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/oauth2"
 	"log/slog"
 	"net/http"
-	"time"
 )
 
 type (
@@ -30,6 +28,7 @@ type (
 	authorizer interface {
 		CreateTokens(username string) (jwt.Tokens, error)
 		ValidateAndUpdate(refresh string) (jwt.Tokens, error)
+		Validate(token string) (bool, string, error)
 	}
 	googleAuthorizer interface {
 		Exchange(ctx context.Context, code string, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error)
@@ -43,17 +42,22 @@ type AuthHandler struct {
 	userGetter       userGetter
 	authorizer       authorizer
 	googleAuthorizer googleAuthorizer
-
-	sessionStore *session.Store
+	clientURL        string
 }
 
-func NewAuthHandler(userInserter userInserter, userGetter userGetter, authorizer authorizer, googleConfig googleAuthorizer) AuthHandler {
+func NewAuthHandler(
+	userInserter userInserter,
+	userGetter userGetter,
+	authorizer authorizer,
+	googleConfig googleAuthorizer,
+	clientURL string,
+) AuthHandler {
 	return AuthHandler{
 		userInserter:     userInserter,
 		userGetter:       userGetter,
 		authorizer:       authorizer,
 		googleAuthorizer: googleConfig,
-		sessionStore:     session.New(),
+		clientURL:        clientURL,
 	}
 }
 
@@ -187,47 +191,32 @@ func (a AuthHandler) Verify(c fiber.Ctx) error {
 }
 
 func (a AuthHandler) GoogleSignIn(c fiber.Ctx) error {
-	stateId := uuid.NewString()
 	ctx := c.Context()
 
-	sess, err := a.sessionStore.Get(c)
+	tokens, err := a.authorizer.CreateTokens(uuid.NewString())
 	if err != nil {
-		slog.ErrorContext(ctx, "session not initialized")
+		slog.ErrorContext(ctx, err.Error())
 		return c.Status(http.StatusInternalServerError).JSON(responses.ErrorResponse{
 			Code:    http.StatusInternalServerError,
-			Message: "session not initialized",
+			Message: "state token not created",
 		})
 	}
 
-	sess.Set("state", stateId)
-	sess.SetExpiry(time.Minute * 5)
-	if err := sess.Save(); err != nil {
-		slog.ErrorContext(ctx, "saving session")
-		return c.Status(http.StatusInternalServerError).JSON(responses.ErrorResponse{
-			Code:    http.StatusInternalServerError,
-			Message: "session storing error",
-		})
-	}
+	url := a.googleAuthorizer.AuthCodeURL(tokens.AccessToken)
 
-	url := a.googleAuthorizer.AuthCodeURL(stateId)
-	return c.Status(http.StatusTemporaryRedirect).Redirect().To(url)
+	return c.Status(http.StatusOK).JSON(responses.Oauth2Response{
+		Url: url,
+	})
 }
 
 func (a AuthHandler) GoogleCallback(c fiber.Ctx) error {
 	ctx := c.Context()
 
-	sess, err := a.sessionStore.Get(c)
-	if err != nil {
-		slog.ErrorContext(ctx, "invalid oauth state")
-		return c.Status(http.StatusInternalServerError).JSON(responses.ErrorResponse{
-			Code:    http.StatusInternalServerError,
-			Message: "session not initialized",
-		})
-	}
+	state := c.FormValue("state")
+	ok, _, err := a.authorizer.Validate(state)
 
-	stateId := sess.Get("state")
-	if c.FormValue("state") != stateId {
-		slog.ErrorContext(ctx, "invalid oauth state")
+	if err != nil || !ok {
+		slog.ErrorContext(ctx, "invalid oauth state: %w", err)
 		return c.Status(http.StatusUnauthorized).JSON(responses.ErrorResponse{
 			Code:    http.StatusUnauthorized,
 			Message: "unauthorized",
@@ -303,8 +292,5 @@ func (a AuthHandler) GoogleCallback(c fiber.Ctx) error {
 			Message: "internal server error",
 		})
 	}
-	return c.Status(http.StatusOK).JSON(responses.TokensResponse{
-		AccessToken:  tokens.AccessToken,
-		RefreshToken: tokens.RefreshToken,
-	})
+	return c.Status(http.StatusPermanentRedirect).Redirect().To(a.clientURL + "?refresh=" + tokens.RefreshToken + "&access=" + tokens.AccessToken)
 }
